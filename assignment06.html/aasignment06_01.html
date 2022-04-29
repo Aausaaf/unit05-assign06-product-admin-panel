@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assignment06.css">
+</head>
+<body>
+    <div class="navbar">
+        <ul>
+          <a href="aasignment06_01.html">  <li>Add Product</li></a>
+           <a href="aasignment06_02.html"> <li>Product List</li></a>
+        </ul>
+    </div>
+
+
+    <!-- product info -->
+
+    <div class="productinfo">
+        <p>Product Info</p>
+        <input type="text" name="" id="name" placeholder="Enter Product Name">
+        <input  style="margin-top: 4vh;" type="text" name="" id="category" placeholder="Enter Product Category" required>
+        <input  style="margin-top: 4vh;" type="text" name="" id="image" placeholder="Enter Product URL" required>
+        <input  style="margin-top: 4vh;" type="number" name="" id="price" placeholder="Enter Product Price" required>
+        <select style="margin-top: 4vh; font-size: 1.6vw; font-weight: 550; color: #8a888c;" name="" id="gender" required >
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Others</option>
+        </select>
+        <select style="margin-top: 4vh; font-size: 1.6vw; font-weight: 550; color: #8a888c;" name="" id="sold" required>
+            <option value="">Sold</option>
+            <option value=true>Yes</option>
+            <option value=flase>No</option>
+            
+        </select>
+
+        <button type="submit" onclick="submit()">SUBMIT</button>
+    </div>
+
+
+    <script>
+        var names= document.getElementById("name")
+        var categories = document.getElementById("category")
+        var url = document.getElementById("image")
+        var price = document.getElementById("price")
+        var gender = document.getElementById("gender")
+        var sold = document.getElementById("sold")
+        
+           // sold = true
+    
+           //sold = false
+        if(JSON.parse( localStorage.getItem("addproduct")).length == 0)
+        {
+            var id = 0
+        }
+        else
+        {
+           
+           var tem = JSON.parse( localStorage.getItem("addproduct"))
+            var id = tem[tem.length-1].id
+        }
+        
+       
+        console.log(id)
+        
+        if(JSON.parse(localStorage.getItem("addproduct")) ==  undefined )
+        {
+            localStorage.setItem("addproduct",JSON.stringify([]))
+        }
+        function submit()
+        {
+            event.preventDefault();
+            console.log(sold.value)
+            var arr = []
+             arr = JSON.parse(localStorage.getItem("addproduct"))
+          var tem =  new product(names.value,categories.value,url.value,price.value,gender.value,sold.value,id)
+          
+           console.log(tem)
+           arr.push(tem)
+           localStorage.setItem("addproduct",JSON.stringify(arr))
+           window.location.reload()
+
+        }
+    
+        function product(name,categories,url,price,gender,sold,id )
+        {
+            this.name = name;
+            this.categories = categories;
+            this.url = url;
+            this.price = price;
+            this.gender = gender;
+            this.sold = sold;
+            this.id = ++id;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assignment06.css">
+</head>
+<body>
+    <div class="navbar">
+        <ul>
+          <a href="aasignment06_01.html">  <li>Add Product</li></a>
+           <a href="aasignment06_02.html"> <li>Product List</li></a>
+        </ul>
+    </div>
+     <div id="container"></div>
+
+     <script>
+         var conatiner = document.getElementById("container")
+          var sold;
+        
+          var arr = JSON.parse(localStorage.getItem("addproduct"))
+        // console.log(arr[0].name)
+       function renderdata()
+       {
+        arr = JSON.parse(localStorage.getItem("addproduct"))
+         if(arr.length != null)
+         {
+            
+             conatiner.innerHTML = ""
+             arr.forEach(arr => {
+                var divs = document.createElement("div")
+                 divs.setAttribute("class","divs")
+                 var imagebox = document.createElement("div")
+                 imagebox.setAttribute("class","imagebox")
+                 var img = document.createElement("img")
+                 img.setAttribute("class","img")
+                 imagebox.append(img)
+                 img.src = arr.url;
+                 var name= document.createElement("p")
+                 name.setAttribute("class","name")
+                 name.innerHTML = arr.name;
+               //  console.log(arr[i].name)
+
+                 var price = document.createElement("p")
+                 price.setAttribute("class","price")
+                 price.innerHTML = arr.price;
+                 var sold = document.createElement("button")
+                 if(arr.sold == "true")
+                 {
+                       sold.setAttribute("class","sold1")
+                 }
+                 else
+                 {
+                    sold.setAttribute("class","sold2")
+                 }
+               //  sold.setAttribute("class","sold")
+                 sold.innerHTML = "SOLD"
+                 sold.onclick = function()
+                 {
+                     soldes(arr)
+                 }
+                 var removes = document.createElement("button")
+                 removes.setAttribute("class","removes")
+                 removes.innerHTML = "REMOVE"
+                 removes.onclick = function()
+                 {
+                       
+                        removed(arr)
+            
+    
+                 }
+
+                 divs.append(imagebox,name,price,sold,removes)
+               conatiner.append(divs)
+               
+             }); 
+                 
+                  
+             
+         }
+
+       }
+       renderdata()
+         function soldes(i)
+         {
+             if(i.sold == "true")
+             {
+                    
+                     
+
+                     for(var j =0 ; j < arr.length ; j++)
+                   {
+                  if(arr[j].id == i.id)
+                  {
+                    arr[j].sold = "flase"
+                  }
+
+                } 
+                localStorage.setItem("addproduct",JSON.stringify(arr))
+                     renderdata()
+             }
+             else
+             {
+                //sold.setAttribute("class","sold")
+                for(var j =0 ; j < arr.length ; j++)
+             {
+                if(arr[j].id == i.id)
+                {
+                    arr[j].sold = "true"
+                }
+
+             }
+             localStorage.setItem("addproduct",JSON.stringify(arr))
+                     renderdata()
+             } 
+
+         }
+
+         function removed(i)
+         {
+            var newarr = []
+            // console.log(arr)
+             for(var j =0 ; j < arr.length ; j++)
+             {
+                if(arr[j].id !== i.id)
+                {
+                    newarr.push(arr[j])
+                }
+
+             }
+
+             localStorage.setItem("addproduct",JSON.stringify(newarr))
+             renderdata() 
+            console.log(newarr)
+
+         }
+     </script>
+</body>
+</html>
