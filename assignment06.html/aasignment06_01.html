@@ -51,6 +51,11 @@
         
            // sold = true
     
+          if(JSON.parse(localStorage.getItem("addproduct")) ==  undefined )
+        {
+            localStorage.setItem("addproduct",JSON.stringify([]))
+        }
+        
            //sold = false
         if(JSON.parse( localStorage.getItem("addproduct")).length == 0)
         {
@@ -66,10 +71,7 @@
        
         console.log(id)
         
-        if(JSON.parse(localStorage.getItem("addproduct")) ==  undefined )
-        {
-            localStorage.setItem("addproduct",JSON.stringify([]))
-        }
+      
         function submit()
         {
             event.preventDefault();
